@@ -1,0 +1,43 @@
+def gv
+pipeline {
+    agent any
+    parameters {
+        choice(name: 'VERSION', choices: ['1.1.0', '1.2.0', '1.3.0'], description: 'Select a version')
+        booleanParam(name: 'ENABLE_TESTS', defaultValue: false, description: 'Enable tests?')
+    }
+    stages {
+        stage("init") {
+            steps {
+                script {
+                    gv = load "script.groovy"
+                }
+            }
+        }
+        stage("buildJar") {
+            steps {
+                script {
+                    gv.buildJAr()
+                }
+            }
+        }
+        stage("testApp") {
+            when {
+                expression {
+                    params.ENABLE_TESTS
+                }
+            }
+            steps {
+                script {
+                    gv.testApp()
+                }
+            }
+        }
+        stage("deployApp") {
+            steps {
+                script {
+                    gv.deployApp()
+                }
+            }
+        }
+    }
+}
