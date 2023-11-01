@@ -4,16 +4,16 @@ pipeline {
         stage("testing") {
             steps {
                 script {
-                    echo "Testing the application ..."
+                    echo "Testing the application..."
                 }
             }
         }
         stage("buildJAr") {
-          when {
-            expression {
-              BRANCH_NAME == "master"
+            when {
+                expression {
+                    BRANCH_NAME == "master"
+                }
             }
-          }
             steps {
                 script {
                     echo "Building the application JAr..."
@@ -21,11 +21,11 @@ pipeline {
             }
         }
         stage("deployApp") {
-          when {
-            expression {
-              BRANCH_NAME == "master"
+            when {
+                expression {
+                    BRANCH_NAME == "master"
+                }
             }
-          }
             steps {
                 script {
                     echo "Deploying the application..."
