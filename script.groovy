@@ -1,5 +1,6 @@
 def buildJAr() {
     echo "Building the application Jar..."
+    echo "Building the application in branch $BRANCH_NAME"
 }
 
 def testApp() {
